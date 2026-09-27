@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<nav th:replace="~{fragments :: navbar}"></nav>
+
+<div class="container">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Sistema de Cadastro de Alunos - Unicsul</h1>
+        <p class="text-muted">Cada campus é representado por uma árvore binária de busca (BST) que mantém os nomes dos alunos organizados em ordem alfabética.</p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+            <div class="card menu-card h-100 text-center p-4">
+                <div class="tree-icon mb-3">📝</div>
+                <h4>1. Cadastrar novo aluno</h4>
+                <p class="text-muted">Cadastre um aluno em um dos campus da Unicsul.</p>
+                <a href="/cadastrar" class="btn btn-primary mt-auto">Acessar</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card menu-card h-100 text-center p-4">
+                <div class="tree-icon mb-3">🔎</div>
+                <h4>2. Localizar aluno</h4>
+                <p class="text-muted">Procure um aluno em todos os campus cadastrados.</p>
+                <a href="/localizar" class="btn btn-primary mt-auto">Acessar</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card menu-card h-100 text-center p-4">
+                <div class="tree-icon mb-3">📋</div>
+                <h4>3. Listar alunos do campus</h4>
+                <p class="text-muted">Veja todos os alunos de um campus em ordem alfabética.</p>
+                <a href="/listar" class="btn btn-primary mt-auto">Acessar</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-5 p-4">
+        <h5>Campus cadastrados no sistema</h5>
+        <ul class="row">
+            <li class="col-md-4" th:each="campus : ${campusList}" th:text="${campus.nomeExibicao}"></li>
+        </ul>
+    </div>
+</div>
+
+<footer th:replace="~{fragments :: scripts}"></footer>
+</body>
+</html>

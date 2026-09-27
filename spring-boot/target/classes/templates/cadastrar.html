@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<nav th:replace="~{fragments :: navbar}"></nav>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card p-4">
+                <h3 class="mb-4">📝 Cadastrar novo aluno</h3>
+
+                <div th:if="${mensagem != null}"
+                     th:class="${sucesso} ? 'alert alert-success' : 'alert alert-danger'"
+                     th:text="${mensagem}">
+                </div>
+
+                <form th:action="@{/cadastrar}" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">Campus</label>
+                        <select class="form-select" name="campus" required>
+                            <option value="" disabled selected>Selecione o campus</option>
+                            <option th:each="campus : ${campusList}"
+                                    th:value="${campus}"
+                                    th:text="${campus.nomeExibicao}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nome do aluno</label>
+                        <input type="text" class="form-control" name="nome"
+                               placeholder="Digite o nome completo do aluno" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Cadastrar aluno</button>
+                </form>
+
+                <a href="/" class="btn btn-link mt-3">&larr; Voltar ao menu</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragments :: scripts}"></footer>
+</body>
+</html>

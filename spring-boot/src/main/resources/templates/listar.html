@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<nav th:replace="~{fragments :: navbar}"></nav>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-7">
+            <div class="card p-4">
+                <h3 class="mb-4">📋 Listar alunos do campus</h3>
+
+                <form th:action="@{/listar}" method="post" class="mb-4">
+                    <div class="mb-3">
+                        <label class="form-label">Selecione o campus</label>
+                        <select class="form-select" name="campus" required>
+                            <option value="" disabled selected>Selecione o campus</option>
+                            <option th:each="campus : ${campusList}"
+                                    th:value="${campus}"
+                                    th:selected="${campusSelecionado != null and campusSelecionado == campus}"
+                                    th:text="${campus.nomeExibicao}">
+                            </option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Listar alunos</button>
+                </form>
+
+                <div th:if="${consultado}">
+                    <h5>
+                        Alunos do campus
+                        <span class="text-primary" th:text="${campusSelecionado.nomeExibicao}"></span>
+                        (<span th:text="${#lists.size(alunos)}"></span> aluno(s))
+                    </h5>
+
+                    <div th:if="${#lists.isEmpty(alunos)}" class="alert alert-secondary">
+                        Nenhum aluno cadastrado neste campus ainda.
+                    </div>
+
+                    <ol class="list-group list-group-numbered" th:unless="${#lists.isEmpty(alunos)}">
+                        <li class="list-group-item" th:each="aluno : ${alunos}" th:text="${aluno}"></li>
+                    </ol>
+                </div>
+
+                <a href="/" class="btn btn-link mt-3">&larr; Voltar ao menu</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="~{fragments :: scripts}"></footer>
+</body>
+</html>
